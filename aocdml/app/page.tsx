@@ -16,7 +16,7 @@ export default function Home() {
     setLoading(true);
 
     const formData = new FormData();
-    formData.append("img_file", file);
+    formData.append("file", file);
 
     for (let [key, value] of formData.entries()) {
       console.log(key, value);
