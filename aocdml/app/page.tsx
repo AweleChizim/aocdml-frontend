@@ -12,6 +12,7 @@ export default function Home() {
   const [shapUrl, setShapUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [consentGiven, setConsentGiven] = useState(false);
+  const[guideRead, setGuideRead] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [greeting, setGreeting] = useState("Welcome");
 
@@ -26,6 +27,10 @@ export default function Home() {
   const handleAcceptConsent = () => {
     setConsentGiven(true);
   };
+
+  const handleGuideRead = () => {
+    setGuideRead(true);
+  }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0] || null;
@@ -118,6 +123,48 @@ export default function Home() {
                 onClick={handleAcceptConsent}
               >
                 I Understand and Accept
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!guideRead) {
+    return (
+      <div className={`${styles.themeWrapper} ${themeClass}`}>
+        <div className={styles.consentOverlay}>
+          <div className={styles.consentModal}>
+            <div className={styles.modalHeader}>
+              <div className={styles.iconWrapper}>
+                <ShieldIcon />
+              </div>
+              <h2>Guides for the XAI Images</h2>
+              <p>Please read these guides to understand how the XAI images work.</p>
+            </div>
+            
+            <div className={styles.modalBody}>
+              <ol className={styles.consentList}>
+                <li>
+                  <strong>Grad-CAM XAI:</strong> highlights the areas of the medical 
+                  image that the model focused on most when making its  prediction. The brighter 
+                  or warmer regions indicate the parts that had the greatest influence on the model's decision.
+                </li>
+                <li>
+                  <strong>SHAP XAI:</strong> shows how different regions or features in the image contributed 
+                  to the models's final prediction, indicating whether each area increased (characterized by red dots) 
+                  or decreased (characterized by blue dots) the model's confidence.
+                </li>
+              </ol>
+            </div>
+
+            <div className={styles.modalFooter}>
+              <button
+                className={styles.primaryButton}
+                onClick={handleGuideRead}
+              >
+                Next
               </button>
             </div>
           </div>
